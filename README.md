@@ -1,1 +1,6 @@
-# eos-python
+eos-python
+==========
+
+## Summary
+
+Unofficial python-client for [EOS RPC Interface](https://eosio.github.io/eos/group__eosiorpc.html).
