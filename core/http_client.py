@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import json as jsonpickle
 from urllib.parse import urljoin
 
 import requests
@@ -17,7 +18,7 @@ class Session(requests.Session):
 
 class HttpClient(object):
     def __init__(self, base_url):
-        self.session = Session(base_url)
+        self._session = Session(base_url)
 
     def get(self, url, **kwargs):
         return self._execute(method="GET", url=url, **kwargs)
@@ -33,11 +34,21 @@ class HttpClient(object):
 
     def _execute(self, method, url, **kwargs):
         try:
-            res = self.session.request(method, url, **kwargs)
-            res.raise_for_status()
-
+            res = self._session.request(method, url,
+                                        params=kwargs.get('params'),
+                                        data=None if kwargs.get('data') is None else jsonpickle.dumps(kwargs.get('data')),
+                                        headers=kwargs.get('headers'),
+                                        cookies=kwargs.get('cookies'),
+                                        files=kwargs.get('files'),
+                                        auth=kwargs.get('auth'),
+                                        timeout=kwargs.get('timeout'),
+                                        allow_redirects=kwargs.get('allow_redirects'),
+                                        proxies=kwargs.get('proxies'),
+                                        hooks=kwargs.get('hooks'),
+                                        stream=kwargs.get('stream'),
+                                        verify=kwargs.get('verify'),
+                                        cert=kwargs.get('cert'),
+                                        json=kwargs.get('json'))
             return res.json()
-        except requests.HTTPError as e:
-            raise e
         except Exception as e:
             raise e
