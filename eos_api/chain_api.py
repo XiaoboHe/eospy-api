@@ -1,7 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import json as jsonpickle
-
 from .api import API
 
 
@@ -27,7 +25,7 @@ class ChainAPI(API):
                                            json=json, lower_bound=lower_bound, upper_bound=upper_bound, limit=limit))
 
     def abi_json_to_bin(self, code, action, args):
-        self._client.post(url='chain/abi_json_to_bin', json=dict(code=code, action=action, args=jsonpickle.dumps(args)))
+        self._client.post(url='chain/abi_json_to_bin', json=dict(code=code, action=action, args=args))
 
     def abi_bin_to_json(self, code, action, binargs):
         return self._client.post(url='chain/abi_bin_to_json', json=dict(code=code, action=action, binargs=binargs))
