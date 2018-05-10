@@ -1,4 +1,4 @@
-eos-python
+eos-api-py
 ==========
 
 ## Summary
