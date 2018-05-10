@@ -37,5 +37,6 @@ class WalletAPI(API):
     def set_timeout(self, timeout: int):
         return self._client.post(url='wallet/set_timeout', data=timeout)
 
-    def sign_trx(self, transactions: list):
-        raise NotImplemented('sign_trx is not implemented')
+    def sign_trx(self, transaction: dict, public_keys: list, chain_id: str):
+        data = [transaction, public_keys, chain_id]
+        return self._client.post(url='wallet/sign_transactions', data=data)
