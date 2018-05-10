@@ -31,3 +31,13 @@ class ChainAPI(API):
 
     def abi_bin_to_json(self, code, action, binargs):
         return self._client.post(url='chain/abi_bin_to_json', json=dict(code=code, action=action, binargs=binargs))
+
+    def push_transaction(self, transactions: list):
+        return self._client.post(url='chain/push_transactions', data=transactions)
+
+    def get_required_keys(self, transaction: dict, available_keys: list):
+        data = {
+            'transaction': transaction,
+            'available_keys': available_keys
+        }
+        return self._client.post(url='chain/get_required_keys', json=data)
