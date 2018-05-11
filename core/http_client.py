@@ -33,22 +33,11 @@ class HttpClient(object):
         return self._execute(method="PUT", url=url, **kwargs)
 
     def _execute(self, method, url, **kwargs):
+        if kwargs.get('data') is not None:
+            kwargs['data'] = jsonpickle.dumps(kwargs.get('data'))
+
         try:
-            res = self._session.request(method, url,
-                                        params=kwargs.get('params'),
-                                        data=None if kwargs.get('data') is None else jsonpickle.dumps(kwargs.get('data')),
-                                        headers=kwargs.get('headers'),
-                                        cookies=kwargs.get('cookies'),
-                                        files=kwargs.get('files'),
-                                        auth=kwargs.get('auth'),
-                                        timeout=kwargs.get('timeout'),
-                                        allow_redirects=kwargs.get('allow_redirects'),
-                                        proxies=kwargs.get('proxies'),
-                                        hooks=kwargs.get('hooks'),
-                                        stream=kwargs.get('stream'),
-                                        verify=kwargs.get('verify'),
-                                        cert=kwargs.get('cert'),
-                                        json=kwargs.get('json'))
+            res = self._session.request(method, url, **kwargs)
             return res.json()
         except Exception as e:
             raise e
