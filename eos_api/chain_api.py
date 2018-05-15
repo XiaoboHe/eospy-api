@@ -21,8 +21,8 @@ class ChainAPI(API):
 
     def get_table_rows(self, scope, code, table, json=True, lower_bound=None, upper_bound=None, limit=None):
         return self._client.post(url='chain/get_table_rows',
-                                 json=dict(scope=scope, code=code, table=table,
-                                           json=json, lower_bound=lower_bound, upper_bound=upper_bound, limit=limit))
+                                 json=dict(scope=scope, code=code, table=table, json=json,
+                                           lower_bound=lower_bound, upper_bound=upper_bound, limit=limit))
 
     def abi_json_to_bin(self, code, action, args):
         self._client.post(url='chain/abi_json_to_bin', json=dict(code=code, action=action, args=args))
