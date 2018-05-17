@@ -1,4 +1,4 @@
-eos-api-py
+eospy-api
 ==========
 
 ## Summary
